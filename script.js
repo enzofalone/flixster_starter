@@ -1,32 +1,56 @@
 //https://api.themoviedb.org/3/movie/550?api_key=3888a9aa421b0d908bcf29d7e7af2804 EXAMPLE
 
 //GLOBAL CONSTANTS
+const INCLUDE_ADULT = false;
 
 //ELEMENTS
 const movieGrid = document.querySelector("#movies-grid");
 const buttonMore = document.querySelector("#button-more");
+const form = document.querySelector("form");
+
+const buttonTop = document.querySelector("#button-top");
+
 // variables
-let pages = 1;
-let lastQuery = '';
+let pages = 1; // minimum is 1 for MovieDB API
+let lastQuery = 0;
+let lastFetch = 'https://api.themoviedb.org/3/movie/now_playing?';
+/**
+ * all requests in the application are made through getResults 
+ * @param {query} String
+ */
 
-const getResults = async(query) => {
-    let response;
-    if (query === undefined) {
-        //fetches now playing movies
-        response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${pages}`)
-        pages++;
-    } else {
-        //if there was an argument passed, we query the argument
-        //              TODO 
-        pages = 1;
-    }
-    console.log(response);
-    let responseData = await response.json();
+const getResults = async (query, isNewQuery) => {
+	let response;
+	
+	if(isNewQuery){
+		pages = 1;
+		clearResults();
+	}
 
-    console.log(responseData);
+	if (query === undefined) {
+		//fetches 'now playing' movies
+		response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${pages}`)
+		pages++;
+	} else {
+		//if there was an argument passed, we query a search 
+		console.log("query: ", query);
 
-    //send results as it is the main data that will be manipulated
-    displayResults(responseData.results);
+		response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=${pages}&include_adult=${INCLUDE_ADULT}&query=${query}`);
+	}
+
+	console.log(response); //debugging
+	
+	let responseData = await response.json();
+
+	console.log(responseData); //debugging
+
+	//send results as it is the main data that will be manipulated
+	displayResults(responseData.results);
+}
+
+// clear all the results every time is called
+const clearResults = () => {
+	movieGrid.innerHTML = ``;
 }
 
 /** 
@@ -35,14 +59,11 @@ const getResults = async(query) => {
  * with all the relevant information of it 
  */
 
-const displayResults = (dataObject, isNewQuery) => {
-    //clear grid every time we are going to display more results
-    if(isNewQuery){
-        movieGrid.innerHTML = ``;
-    }
-    // for each result object displayResults receives, a card is created
-    dataObject.forEach(element => {
-        movieGrid.innerHTML += `
+const displayResults = (dataObject) => {
+	// for each result object displayResults receives, a card is created
+	dataObject.forEach(element => {
+		if(element.poster_path === null) return;
+		movieGrid.innerHTML += `
         <div class="movie-card">    
             <img class="movie-poster" src='https://image.tmdb.org/t/p/w500${element.poster_path}'>
             <div class="movie-card-specs">
@@ -56,13 +77,37 @@ const displayResults = (dataObject, isNewQuery) => {
             </div>
         </div>
         `;
-    });
+	});
+
+	// add eventListeners to all images so we can open a modal
+	// TODO
 }
 
+const goTop = () => {
+	document.body.scrollTop = 0;
+	document.documentElement.scrollTop = 0;
+}
+
+window.onscroll = function() {
+	if((document.body.scrollTop > 300) || (document.documentElement.scrollTop > 300)) {
+		buttonTop.style.display = "block";
+		// buttonTop.style.filter = "opacity(100%)"
+	} else {
+		buttonTop.style.display = "none";
+		// buttonTop.style.display = "opacity(0%)";
+	}
+}
+
+
 window.onload = () => {
-    buttonMore.addEventListener('click',(e) => { //atm using an anonymous function
-        getResults(); 
-    });
-    
-    getResults();
+	buttonMore.addEventListener('click', (e) => { //atm using an anonymous function
+		getResults();
+	});
+
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		getResults(e.target.query.value, true);
+	})
+
+	getResults();
 }
