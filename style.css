@@ -1,1 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
 
+/* GENERAL SETTINGS FOR ALL ELEMENTS TO INHERIT */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+/* header  */
+main {
+    width: 100vw;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 1vw;
+    color:white;
+}
+
+main>h1 {
+    font-size: 3rem;
+    margin-left: 10px;
+}
+
+main>form {
+    margin-left: auto;
+}
+
+main>form>input {
+    padding: 4%;
+    font-size: 16px;
+    
+    border-radius: 5px;
+    border: none;
+
+    margin-right: 2vw;
+}
