@@ -5,24 +5,25 @@ const INCLUDE_ADULT = false;
 
 //ELEMENTS
 const movieGrid = document.querySelector("#movies-grid");
-const buttonMore = document.querySelector("#button-more");
+const buttonMore = document.querySelector("#load-more-movies-btn");
 const form = document.querySelector("form");
 
 const buttonTop = document.querySelector("#button-top");
+const buttonClose = document.querySelector("#close-search-btn");
 
 // variables
 let pages = 1; // minimum is 1 for MovieDB API
-let lastQuery = 0;
-let lastFetch = 'https://api.themoviedb.org/3/movie/now_playing?';
+let lastQuery = NaN;
 /**
- * all requests in the application are made through getResults 
+ * creates a request to the movieDB API depending on arguments passed. query triggers a "movie search." In case it is undefined, it will call
+ * displayResult with the "now playing" movies. isNewQuery works as a sentinel to clear the results in the card grid and reset the number of pages
  * @param {query} String
+ * @param {isNewQuery} Boolean
  */
-
 const getResults = async (query, isNewQuery) => {
 	let response;
-	
-	if(isNewQuery){
+
+	if (isNewQuery) {
 		pages = 1;
 		clearResults();
 	}
@@ -30,16 +31,21 @@ const getResults = async (query, isNewQuery) => {
 	if (query === undefined) {
 		//fetches 'now playing' movies
 		response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${pages}`)
+		//increase pages for next call
 		pages++;
 	} else {
 		//if there was an argument passed, we query a search 
 		console.log("query: ", query);
 
 		response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=${pages}&include_adult=${INCLUDE_ADULT}&query=${query}`);
+
+		showCloseButton();
+
+		pages++;
 	}
 
 	console.log(response); //debugging
-	
+
 	let responseData = await response.json();
 
 	console.log(responseData); //debugging
@@ -54,7 +60,7 @@ const clearResults = () => {
 }
 
 /** 
- * displayResults is in charge of receiving 
+ * when displayResults is called, it receives 
  * all the data and convert the movies into 'cards' 
  * with all the relevant information of it 
  */
@@ -62,10 +68,10 @@ const clearResults = () => {
 const displayResults = (dataObject) => {
 	// for each result object displayResults receives, a card is created
 	dataObject.forEach(element => {
-		if(element.poster_path === null) return;
+		if (element.poster_path === null) return;
 		movieGrid.innerHTML += `
         <div class="movie-card">    
-            <img class="movie-poster" src='https://image.tmdb.org/t/p/w500${element.poster_path}'>
+            <img alt="Movie poster" class="movie-poster" src='https://image.tmdb.org/t/p/w500${element.poster_path}'>
             <div class="movie-card-specs">
                 <span class="movie-title">${element.original_title}</span>
                 <div class="movie-votes">
@@ -83,13 +89,56 @@ const displayResults = (dataObject) => {
 	// TODO
 }
 
+// toggle for close button
+const showCloseButton = () => {
+	if(buttonClose.classList.contains("hidden")) {
+		buttonClose.classList.remove("hidden");
+	}
+}
+
+const hideCloseButton = () => {
+	if(!buttonClose.classList.contains("hidden")) {
+		buttonClose.classList.add("hidden");
+	}
+	// reset input value
+	// console.log(form.query.value);
+	form.query.value = '';
+	console.log(form.query.value);
+}
+
+// callback for "go to top" button
 const goTop = () => {
 	document.body.scrollTop = 0;
 	document.documentElement.scrollTop = 0;
 }
 
-window.onscroll = function() {
-	if((document.body.scrollTop > 300) || (document.documentElement.scrollTop > 300)) {
+// wrap all the eventListeners here
+const addEventListeners = () => {
+	//Show More button listener
+	buttonMore.addEventListener('click', (e) => { //atm using an anonymous function
+		if (form.query.value == '') {
+			getResults();
+		} else {
+			getResults(form.query.value, false);
+		}
+	});
+
+	//Close search button listener
+	buttonClose.addEventListener('click', (e) => {
+		getResults(undefined, true);
+		hideCloseButton();
+	});
+
+	//search input listener 
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+		getResults(e.target.query.value, true);
+	});
+}
+
+// show "go to top" button every time the user scrolls more than 300 pixels  
+window.onscroll = function () {
+	if ((document.body.scrollTop > 300) || (document.documentElement.scrollTop > 300)) { //TODO change to a value relative to the user's screen
 		buttonTop.style.display = "block";
 		// buttonTop.style.filter = "opacity(100%)"
 	} else {
@@ -98,16 +147,7 @@ window.onscroll = function() {
 	}
 }
 
-
 window.onload = () => {
-	buttonMore.addEventListener('click', (e) => { //atm using an anonymous function
-		getResults();
-	});
-
-	form.addEventListener('submit', (e) => {
-		e.preventDefault();
-		getResults(e.target.query.value, true);
-	})
-
+	addEventListeners();
 	getResults();
 }
