@@ -9,7 +9,7 @@ const buttonMore = document.querySelector("#button-more");
 let pages = 1;
 let lastQuery = '';
 
-async function getResults(query) {
+const getResults = async(query) => {
     let response;
     if (query === undefined) {
         //fetches now playing movies
@@ -35,7 +35,7 @@ async function getResults(query) {
  * with all the relevant information of it 
  */
 
-function displayResults(dataObject, isNewQuery) {
+const displayResults = (dataObject, isNewQuery) => {
     //clear grid every time we are going to display more results
     if(isNewQuery){
         movieGrid.innerHTML = ``;
@@ -60,8 +60,8 @@ function displayResults(dataObject, isNewQuery) {
 }
 
 window.onload = () => {
-    buttonMore.addEventListener('click',(e) => {
-        getResults();
+    buttonMore.addEventListener('click',(e) => { //atm using an anonymous function
+        getResults(); 
     });
     
     getResults();
