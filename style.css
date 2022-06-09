@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
 
+:root {
+    /* color variables */
+    --white: #ececec;
+    --background: #212121;
+}
+
 /* GENERAL SETTINGS FOR ALL ELEMENTS TO INHERIT */
 
 * {
@@ -9,27 +15,35 @@
 }
 
 body {
-    background-color: black;
+    background-color: var(--background);
+}
+
+section {
+    display:flex;
+    flex-direction: column;
+
+    justify-content: center;
 }
 
 /* header  */
 main {
-    width: 100vw;
+    width: 99vw;
     display:flex;
     flex-direction: row;
     align-items: center;
 
     padding: 1vw;
-    color:white;
-}
-
-main>h1 {
-    font-size: 3rem;
-    margin-left: 10px;
+    color:var(--white);
 }
 
 main>form {
     margin-left: auto;
+}
+
+main>h1, main>svg {
+    font-size: 3rem;
+    margin-left: 1vw;
+    user-select: none;
 }
 
 main>form>input {
@@ -40,4 +54,73 @@ main>form>input {
     border: none;
 
     margin-right: 2vw;
+
+    background-color: var(--white);
+}
+
+/* movies grid section */
+
+#movies-grid {
+    display:flex;
+    flex-wrap: wrap;
+
+    gap: 2vw;
+
+    justify-content: center;
+}
+
+/* movie card styling */
+
+.movie-card { 
+    flex-basis: 20%;
+    /* border: 1px solid red; */
+    text-align:center;
+
+    height:fit-content;
+}
+
+.movie-poster {
+    width: 80%;
+    height: 80%;
+    transition: all 200ms;
+}
+
+.movie-poster:hover {
+    filter:brightness(50%);
+    cursor:pointer;
+}
+
+.movie-card-specs {
+    color:var(--white);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+.movie-votes {
+    align-self: center;
+}
+
+/* other */
+
+#button-more {
+    width:fit-content;
+    font-size: 24px;
+    align-self: center;
+    margin:2rem;
+
+    border: solid 2px var(--white);
+    border-radius: 5px;
+
+background-color: var(--white);
+
+    transition: all 220ms;
+}
+
+#button-more:hover {
+    color: var(--white);
+    background-color: var(--background);
+    border: solid 2px var(--white);
 }
