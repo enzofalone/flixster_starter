@@ -40,11 +40,17 @@ main>form {
     margin-left: auto;
 }
 
-main>h1, main>svg {
+.header-title {
     font-size: 3rem;
     margin-left: 1vw;
-    user-select: none;
+    transition: all 200ms;
 }
+
+.header-title:hover {
+    color:red;
+    cursor: pointer;
+}
+
 
 main>form>input {
     padding: 4%;
