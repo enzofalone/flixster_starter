@@ -175,8 +175,18 @@ main>form {
 	}
 }
 
-/******/
-
 .hidden {
 	display: none;
+}
+
+#no-result-wrapper {
+	width: fit-content;
+	padding: 0.1rem 1rem;
+	margin:2rem auto;
+
+	text-align: center;
+	font-style: italic;
+	
+	border-radius: 10px;
+	background-color: red;
 }

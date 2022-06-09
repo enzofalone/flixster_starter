@@ -5,9 +5,10 @@ const INCLUDE_ADULT = false;
 
 //ELEMENTS
 const movieGrid = document.querySelector("#movies-grid");
-const buttonMore = document.querySelector("#load-more-movies-btn");
 const form = document.querySelector("form");
+const noResultsDiv = document.querySelector("#no-result-wrapper");
 
+const buttonMore = document.querySelector("#load-more-movies-btn");
 const buttonTop = document.querySelector("#button-top");
 const buttonClose = document.querySelector("#close-search-btn");
 
@@ -34,24 +35,27 @@ const getResults = async (query, isNewQuery) => {
 		//increase pages for next call
 		pages++;
 	} else {
-		//if there was an argument passed, we query a search 
-		console.log("query: ", query);
-
 		response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=${pages}&include_adult=${INCLUDE_ADULT}&query=${query}`);
-
 		showCloseButton();
-
 		pages++;
 	}
 
 	console.log(response); //debugging
-
+	
 	let responseData = await response.json();
-
+	
 	console.log(responseData); //debugging
+	//if there are no results, show a text for the user to know
+	if(responseData.results.length == 0) {
+		console.log("no results received");
+		showNoResults();
+		hideMoreButton();
+	} else {
+
 
 	//send results as it is the main data that will be manipulated
 	displayResults(responseData.results);
+	}
 }
 
 // clear all the results every time is called
@@ -85,11 +89,14 @@ const displayResults = (dataObject) => {
         `;
 	});
 
+	//show button to make more requests
+	showMoreButton();
+
 	// add eventListeners to all images so we can open a modal
 	// TODO
 }
 
-// toggle for close button
+// show/hide functions for close search button
 const showCloseButton = () => {
 	if(buttonClose.classList.contains("hidden")) {
 		buttonClose.classList.remove("hidden");
@@ -104,6 +111,32 @@ const hideCloseButton = () => {
 	// console.log(form.query.value);
 	form.query.value = '';
 	console.log(form.query.value);
+}
+
+// shows/hides the "Show More!" button
+const showMoreButton = () => {
+	if(buttonMore.classList.contains("hidden")) {
+		buttonMore.classList.remove("hidden");
+	}
+}
+
+const hideMoreButton = () => {
+	if(!buttonMore.classList.contains("hidden")){
+		buttonMore.classList.add("hidden");
+	}
+}
+
+// shows/hides a text alerting the user that there are no more results
+const showNoResults = () => {
+	if(noResultsDiv.classList.contains("hidden")) {
+		noResultsDiv.classList.remove("hidden");
+	}
+}
+
+const hideNoResults = () => {
+	if(!noResultsDiv.classList.contains("hidden")){
+		noResultsDiv.classList.add("hidden");
+	}
 }
 
 // callback for "go to top" button
