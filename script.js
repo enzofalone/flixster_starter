@@ -77,15 +77,22 @@ const clearResults = () => {
 
 const displayResults = (dataObject) => {
 	// for each result object displayResults receives, a card is created
-	dataObject.forEach(element => {
-		if (element.poster_path === null) return; // TODO CHANGE THIS WITH A PLACEHOLDER
+	dataObject.forEach(element => { 
+		let posterPath;
+
+		//if the current movie does not have a poster_path, it is replaced with a placeholder
+		if (element.poster_path === null) {
+			posterPath = "https://i0.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1";
+		} else {
+			posterPath = `https://image.tmdb.org/t/p/w500${element.poster_path}`
+		}
 
 		let movieCard = document.createElement("div");
 		movieCard.classList.add("movie-card");
 
 		let moviePoster = document.createElement("img");
 		moviePoster.classList.add("movie-poster");
-		moviePoster.src = `https://image.tmdb.org/t/p/w500${element.poster_path}`;
+		moviePoster.src = posterPath;
 		moviePoster.alt = "Movie poster";
 		moviePoster.addEventListener('click', (e) => {
 			openDetails(element); // Throw the object in order to show full details of the movie in a popup 
@@ -175,10 +182,10 @@ window.onscroll = function () {
 	} else {
 		buttonTop.style.display = "none";
 	}
-
-	if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight)) {
-		showMoreEvent();
-	}
+	// infinite scrolling feature 
+	// if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight)) {
+	// 	showMoreEvent();
+	// }
 }
 
 window.onload = () => {
