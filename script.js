@@ -30,7 +30,7 @@ let pages = 1; // minimum is 1 for MovieDB API
  */
 const getResults = async (query, isNewQuery) => {
 	let response;
-	console.log("hola")
+
 	// check if the no result div is present, if it is, hide it for a new query
 	hideElement(noResultsDiv);
 
