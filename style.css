@@ -208,7 +208,7 @@ main>form {
 /* modal styling */
 #modal {
 	width: 70vw;
-	height: 80vh;
+	height: 80%;
 
 	position: fixed;
 	top: 50%;
@@ -242,9 +242,16 @@ main>form {
 }
 
 #modal-body, #modal-release-date {
-	margin: 0.5% 3%;
 	font-size: 20px;
-	
+	margin: 0.5% 3%;
+	max-width: 100%;
+  -webkit-line-clamp: 3;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
 }
 
 #modal-video {

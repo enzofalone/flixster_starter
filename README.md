@@ -41,11 +41,10 @@ Deployed Application: [Flixster Deployed Site](https://enzofalone.github.io/flix
 - [x] Added a design to movie popup (rating stars, dimmed background image)
 - [x] Placeholder image for API results that do not contain a poster
 - [x] Star rating system in popup where it fills the stars based on whats given by API
+
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. (🚫 Remove this paragraph after adding walkthrough video)
-
-`ADD_EMBEDDED_CODE_HERE`
+<img src="https://github.com/enzofalone/flixster_starter/blob/main/Animation.gif" width="860px" height="640px">
 
 ### Reflection
 
