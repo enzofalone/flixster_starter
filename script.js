@@ -11,13 +11,16 @@ const noResultsDiv = document.querySelector("#no-result-wrapper");
 const buttonMore = document.querySelector("#load-more-movies-btn");
 const buttonTop = document.querySelector("#button-top");
 const buttonClose = document.querySelector("#close-search-btn");
-
+//MODAL ELEMENTS
 const modal = document.querySelector("#modal");
 const modalBg = document.querySelector("#modal-background");
 
+const modalFrame = modal.querySelector("iframe");
+
 // variables
 let pages = 1; // minimum is 1 for MovieDB API
-let endOfPageReached = false;
+// let endOfPageReached = false;
+
 /**
  * creates a request to the movieDB API depending on arguments passed. query triggers a "movie search." In case it is undefined, it will call
  * displayResult with the "now playing" movies. isNewQuery works as a sentinel to clear the results in the card grid and reset the number of pages
@@ -26,7 +29,7 @@ let endOfPageReached = false;
  */
 const getResults = async (query, isNewQuery) => {
 	let response;
-
+	console.log("hola")
 	// check if the no result div is present, if it is, hide it for a new query
 	hideElement(noResultsDiv);
 
@@ -46,7 +49,7 @@ const getResults = async (query, isNewQuery) => {
 		showElement(buttonClose);
 		pages++;
 	}
-
+	console.log(response);
 	let responseData = await response.json();
 	console.log(responseData); //debugging
 
@@ -62,6 +65,14 @@ const getResults = async (query, isNewQuery) => {
 		//send results as it is the main data that will be manipulated
 		displayResults(responseData.results);
 	}
+}
+
+async function getVideo(movieId) {
+
+	let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`)
+	let responseData = await response.json();
+
+	return responseData;
 }
 
 // clear all the results every time is called
@@ -97,7 +108,7 @@ const displayResults = (dataObject) => {
 		moviePoster.src = posterPath;
 		moviePoster.alt = "Movie poster";
 		moviePoster.addEventListener('click', (e) => {
-			openDetails(element); // Throw the object in order to show full details of the movie in a popup 
+			openDetails(element); // Pass the object in order to show full details of the movie in the popup 
 		});
 
 		let movieCardSpecWrapper = document.createElement("div");
@@ -122,14 +133,31 @@ const displayResults = (dataObject) => {
 	showElement(buttonMore);
 }
 
+//modal
 const openDetails = (element) => {
 	showElement(modal);
 	showElement(modalBg);
-	console.log("test");
+
+	let movieVideosObject;
+	let youtubeKey;
+	
+	//Set all the elements according to the object's data
+	
+	//wait for promise in async block
+	(async() => {
+		movieVideosObject = await getVideo(element.id);
+		youtubeKey = movieVideosObject.results[0].key;
+	})()
+	modalFrame.src = `https://www.youtube.com/embed/${youtubeKey}`;
+	
+	modalBg.addEventListener("click", (e) => {
+		closeDetails();
+	})
 }
 
 const closeDetails = (e) => {
-
+	hideElement(modal);
+	hideElement(modalBg);
 }
 
 const showElement = (element) => {
@@ -197,4 +225,5 @@ window.onscroll = function () {
 window.onload = () => {
 	addEventListeners();
 	getResults();
+	
 }

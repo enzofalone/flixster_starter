@@ -34,7 +34,7 @@ section {
 
 /* header  */
 main {
-	width: 99vw;
+	width: 95vw;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -180,12 +180,17 @@ main>form {
 	.movie-card {
 		flex-basis: 25%;
 	}
+
+	#modal {
+		
+	}
 }
 
 @media (max-width: 800px) {
 	.movie-card {
 		flex-basis: 40%;
 	}
+	/* TODO MAKE MODAL RESPONSIVE */
 }
 
 #no-result-wrapper {
@@ -197,6 +202,22 @@ main>form {
 
 	/* border-radius: 10px; */
 	background-color: red;
+}
+
+/* modal styling */
+#modal {
+	width: 70vw;
+	height: 80vh;
+
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border: 1px solid red;
+	background-color: var(--modal-background);
+	z-index: 10;
+
+	border-radius: 5px;
 }
 
 #modal-background {
@@ -211,18 +232,3 @@ main>form {
 
 	z-index: 9;
 }
-
-/* modal styling */
-#modal {
-	width: 60vw;
-	height: 60vh;
-
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-	border: 1px solid red;
-	background-color: var(--modal-background);
-	z-index: 10;
-}
-
