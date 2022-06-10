@@ -1,4 +1,5 @@
 //https://api.themoviedb.org/3/movie/550?api_key=3888a9aa421b0d908bcf29d7e7af2804 EXAMPLE
+const API_KEY = "47e63e8fc6fc190f2fc001150e8a2b60";
 
 //GLOBAL CONSTANTS
 const INCLUDE_ADULT = false;
