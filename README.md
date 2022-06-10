@@ -1,12 +1,10 @@
-📝 `NOTE` Use this template to initialize the contents of a README.md file for your application. As you work on your assignment over the course of the week, update the required or stretch features lists to indicate which features you have completed by changing `[ ]` to `[x]`. (🚫 Remove this paragraph before submitting your assignment.)
-
 ## Week 1 Assignment: Flixster
 
-Submitted by: **NAME**
+Submitted by: **Enzo Falone**
 
-Estimated time spent: **#** hours spent in total
+Estimated time spent: **10** hours spent in total
 
-Deployed Application (optional): [Flixster Deployed Site](ADD_LINK_HERE)
+Deployed Application: [Flixster Deployed Site](https://enzofalone.github.io/flixster_starter/)
 
 ### Application Features
 
@@ -34,13 +32,15 @@ Deployed Application (optional): [Flixster Deployed Site](ADD_LINK_HERE)
 
 #### STRETCH FEATURES
 
-- [ ] Deploy website using GitHub Pages. 
-- [ ] Allow user to view more details about a movie within a popup.
+- [x] Deploy website using GitHub Pages. 
+- [x] Allow user to view more details about a movie within a popup.
 - [x] Improve the user experience through CSS & animation.
-- [ ] Allow movie video trailers to be played using [embedded YouTube](https://support.google.com/youtube/answer/171780?hl=en)
+- [x] Allow movie video trailers to be played using [embedded YouTube](https://support.google.com/youtube/answer/171780?hl=en)
 - [x] "Go to top" button implemented
 - [x] "End of page" alert if the user request retrieves no movies or if reached to the end of the page
-
+- [x] Added a design to movie popup (rating stars, dimmed background image)
+- [x] Placeholder image for API results that do not contain a poster
+- [x] Star rating system in popup where it fills the stars based on whats given by API
 ### Walkthrough Video
 
 `TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. (🚫 Remove this paragraph after adding walkthrough video)
@@ -51,20 +51,25 @@ Deployed Application (optional): [Flixster Deployed Site](ADD_LINK_HERE)
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+I had a long time since I practiced my skills in web development; however, this week really helped me to refresh my knowledge and learn more about async functions and promises and to always learn little but important things about web development in general. Additionally, explanations were exceptional and at lab 3 and this project I did not need to look up more information about making API requests as I learned a lot. I did not know how important were the parameters and paths in API request links and how did they work and I would have realized it in a really later stage in my career if it was not for these topic lessons.
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-Add your response here
+I would have done an infinite scrolling feature which did not work at first but have different approaches in mind. I would as well created a more robust top navigation bar with the use of the wide variety of API GET requests available by MovieDB, and a close approach to checkboxes to alter parameters (language, +PG18 movies) of queries
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+I put a lot of after-hours into creating the YouTube embed as I know I would encounter a problem; however, it took a lot of time to get through it as I wanted to do all the stretch features. Nevertheless, I would have focused in adding more features per se but wanted to make the actual required features as polished as possible which is the main goal of the projects.
+
+I loved the wide use of the MovieDB API and how robust my peers made the website look. Next time I would love to sacrifice the minimalistic design I like to always implement in my webpages to have more risky design choices that for turned out to be excellent!
 
 ### Open-source libraries used
 
-- Add any links to open-source libraries used in your project.
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
+- [FontAwesome](https://fontawesome.com/)
 
 ### Shout out
 
-Give a shout out to somebody from your cohort that especially helped you during your project. This can be a fellow peer, instructor, TA, mentor, etc.
+As always shout out to instructor Doug giving really good explanations for us all and making everything as clear and simple as possible for us to keep working in our projects.
+
+Huge shout out to TA Snigdha as she helped me to troubleshoot why my YouTube embed was not working with a detailed explanation of the ongoing problem, and TA Tatiana that made sure I had no problems constantly and helped me to search for resources in order to solve the problems I was encountering to help by hinting solutions and where to look!
