@@ -52,14 +52,14 @@ main>form {
 }
 
 #header-right {
-	display:flex;
+	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-left:auto;
+	margin-left: auto;
 }
 
 #close-search-btn {
-	margin-left:auto;
+	margin-left: auto;
 	font-size: 16px;
 }
 
@@ -99,6 +99,9 @@ main>form {
 .movie-poster {
 	width: 80%;
 	height: 80%;
+
+	border-radius: 5px;
+
 	transition: all 200ms;
 }
 
@@ -140,26 +143,27 @@ main>form {
 	color: var(--white);
 	background-color: var(--background);
 	border: solid 2px var(--white);
+	cursor: pointer;
 }
 
 #button-top {
-	display:none;
-	position:fixed;
+	display: none;
+	position: fixed;
 	bottom: 0;
-	right:0;
+	right: 0;
 	z-index: 1;
 
 	margin: 0 1.5rem 1.5rem 0;
 
-	color:white;
+	color: white;
 
-	cursor:pointer;
+	cursor: pointer;
 
-	transition:all 200ms;
+	transition: all 200ms;
 }
 
 #button-top:hover {
-	color:red;
+	color: rgb(161, 0, 0);
 }
 
 /* responsive settings */
@@ -180,13 +184,12 @@ main>form {
 }
 
 #no-result-wrapper {
-	width: fit-content;
 	padding: 0.1rem 1rem;
-	margin:2rem auto;
+	margin: 2rem auto;
 
 	text-align: center;
 	font-style: italic;
-	
-	border-radius: 10px;
+
+	/* border-radius: 10px; */
 	background-color: red;
 }
