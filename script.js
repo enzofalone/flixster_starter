@@ -1,4 +1,3 @@
-//https://api.themoviedb.org/3/movie/550?api_key=3888a9aa421b0d908bcf29d7e7af2804 EXAMPLE
 const API_KEY = "47e63e8fc6fc190f2fc001150e8a2b60";
 
 //GLOBAL CONSTANTS
@@ -20,7 +19,6 @@ const modalFrame = modal.querySelector("iframe");
 
 // variables
 let pages = 1; // minimum is 1 for MovieDB API
-// let endOfPageReached = false;
 
 /**
  * creates a request to the movieDB API depending on arguments passed. query triggers a "movie search." In case it is undefined, it will call
@@ -60,8 +58,6 @@ const getResults = async (query, isNewQuery) => {
 
 		showElement(noResultsDiv);
 		hideElement(buttonMore);
-		
-		endOfPageReached = true;
 	} else {
 		//send results as it is the main data that will be manipulated
 		displayResults(responseData.results);
