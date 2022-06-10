@@ -4,6 +4,11 @@
 	/* color variables */
 	--white: #ececec;
 	--background: #212121;
+	--modal-background: #000000;
+}
+
+.hidden {
+	display: none;
 }
 
 /* GENERAL SETTINGS FOR ALL ELEMENTS TO INHERIT */
@@ -13,6 +18,8 @@
 	margin: 0;
 	font-family: 'Roboto', sans-serif;
 }
+
+/* GENERAL STYLING */
 
 body {
 	background-color: var(--background);
@@ -166,6 +173,8 @@ main>form {
 	color: rgb(161, 0, 0);
 }
 
+
+
 /* responsive settings */
 @media (max-width: 1320px) {
 	.movie-card {
@@ -179,10 +188,6 @@ main>form {
 	}
 }
 
-.hidden {
-	display: none;
-}
-
 #no-result-wrapper {
 	padding: 0.1rem 1rem;
 	margin: 2rem auto;
@@ -193,3 +198,31 @@ main>form {
 	/* border-radius: 10px; */
 	background-color: red;
 }
+
+#modal-background {
+	position: fixed;
+	
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	background-color: rgba(0, 0, 0, 0.5);
+
+	z-index: 9;
+}
+
+/* modal styling */
+#modal {
+	width: 60vw;
+	height: 60vh;
+
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border: 1px solid red;
+	background-color: var(--modal-background);
+	z-index: 10;
+}
+

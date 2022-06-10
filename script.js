@@ -13,6 +13,8 @@ const buttonTop = document.querySelector("#button-top");
 const buttonClose = document.querySelector("#close-search-btn");
 
 const modal = document.querySelector("#modal");
+const modalBg = document.querySelector("#modal-background");
+
 // variables
 let pages = 1; // minimum is 1 for MovieDB API
 let endOfPageReached = false;
@@ -118,11 +120,15 @@ const displayResults = (dataObject) => {
 
 	//show button to make more requests
 	showElement(buttonMore);
-
-	// add eventListeners to all images so we can open a modal
 }
 
 const openDetails = (element) => {
+	showElement(modal);
+	showElement(modalBg);
+	console.log("test");
+}
+
+const closeDetails = (e) => {
 
 }
 
