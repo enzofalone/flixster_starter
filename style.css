@@ -114,6 +114,7 @@ main>form {
 
 .movie-poster:hover {
 	filter: brightness(50%);
+	transform: scale(105%);
 	cursor: pointer;
 }
 
@@ -213,11 +214,45 @@ main>form {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-	border: 1px solid red;
-	background-color: var(--modal-background);
-	z-index: 10;
 
-	border-radius: 5px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: var(--modal-background);
+
+	border: solid 2px var(--white);
+	color:var(--white);
+	/* border-radius: 15px; */
+	
+	z-index: 10;
+}
+
+#modal-rating {
+	font-size: 40px;
+	text-align: center;
+}
+
+#modal-header {
+	font-size: 32px;
+	text-align: center;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	background-color: var(--background);
+}
+
+#modal-body {
+	margin: 2% 3%;
+	font-size: 20px;
+	
+}
+
+#modal-video {
+	display:block;
+	width: 60%;
+	height: 60%;
+
+	object-fit:cover;
+ 
+	margin: 0 auto;
 }
 
 #modal-background {

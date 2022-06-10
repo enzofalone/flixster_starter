@@ -1,6 +1,5 @@
-const API_KEY = "47e63e8fc6fc190f2fc001150e8a2b60";
-
 //GLOBAL CONSTANTS
+const API_KEY = "47e63e8fc6fc190f2fc001150e8a2b60";
 const INCLUDE_ADULT = false;
 
 //ELEMENTS
@@ -14,9 +13,11 @@ const buttonClose = document.querySelector("#close-search-btn");
 //MODAL ELEMENTS
 const modal = document.querySelector("#modal");
 const modalBg = document.querySelector("#modal-background");
-
+const modalHeader = modal.querySelector("#modal-header")
+const modalBody = modal.querySelector("#modal-body");
 const modalFrame = modal.querySelector("iframe");
-
+const modalRating = modal.querySelector("#modal-rating");
+const modalReleaseDate = modal.querySelector("#modal-release-date");
 // variables
 let pages = 1; // minimum is 1 for MovieDB API
 
@@ -48,9 +49,8 @@ const getResults = async (query, isNewQuery) => {
 		showElement(buttonClose);
 		pages++;
 	}
-	console.log(response);
+
 	let responseData = await response.json();
-	console.log(responseData); //debugging
 
 	//if there are no results, show a text for the user to know
 	if (responseData.results.length == 0) {
@@ -64,8 +64,7 @@ const getResults = async (query, isNewQuery) => {
 	}
 }
 
-async function getVideo(movieId) {
-
+const getVideo = async(movieId) => {
 	let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`)
 	let responseData = await response.json();
 
@@ -87,7 +86,7 @@ const clearResults = () => {
 
 const displayResults = (dataObject) => {
 	// for each result object displayResults receives, a card is created
-	dataObject.forEach(element => { 
+	dataObject.forEach(element => {
 		let posterPath;
 
 		//if the current movie does not have a poster_path, it is replaced with a placeholder
@@ -131,22 +130,52 @@ const displayResults = (dataObject) => {
 }
 
 //modal
-const openDetails = (element) => {
+const openDetails = async (element) => {
 	showElement(modal);
 	showElement(modalBg);
 
 	let movieVideosObject;
 	let youtubeKey;
-	
+
+	let backdrop_path;
 	//Set all the elements according to the object's data
 	
+	// Background
+	if(element.backdrop_path !== null){
+		backdrop_path = `https://image.tmdb.org/t/p/original${element.backdrop_path}`
+		modal.style.background = `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('${backdrop_path}')`;
+	}
 	//wait for promise in async block
-	(async() => {
-		movieVideosObject = await getVideo(element.id);
-		youtubeKey = movieVideosObject.results[0].key;
-	})()
+	movieVideosObject = await getVideo(element.id);
+	youtubeKey = movieVideosObject.results[0].key;
+
+	console.log("element: ", element);
+	console.log(111, youtubeKey);
+
 	modalFrame.src = `https://www.youtube.com/embed/${youtubeKey}`;
-	
+	//title
+	modalHeader.textContent = element.original_title;
+	//body description
+	modalBody.textContent = element.overview;
+
+	//get the movie rating rounded to the bottom
+	let movieRating = element.vote_average;
+
+	//reset modalRating content for every time we open the modal
+	modalRating.innerHTML = ``;
+
+	for (let i = 0; i < 10; i++) {
+		if (movieRating > 1) {
+			modalRating.innerHTML += `<i style="color:yellow" class="fa fa-star"</i>`
+			movieRating--;
+		} else if(movieRating > 0){
+			modalRating.innerHTML += `<i style="color:yellow" class="fa fa-star-half-empty"></i>`
+			movieRating = 0;
+		} else {
+			modalRating.innerHTML += `<i style="color:whitesmoke" class="fa fa-star"</i>`
+		}
+	}
+
 	modalBg.addEventListener("click", (e) => {
 		closeDetails();
 	})
@@ -158,25 +187,23 @@ const closeDetails = (e) => {
 }
 
 const showElement = (element) => {
-	if(element.classList.contains("hidden")) {
+	if (element.classList.contains("hidden")) {
 		element.classList.remove("hidden");
 	}
 }
 
 const hideElement = (element) => {
-	if(!element.classList.contains("hidden")) {
+	if (!element.classList.contains("hidden")) {
 		element.classList.add("hidden");
 	}
 }
 
 //show more button event
 const showMoreEvent = () => {
-	if (!endOfPageReached) {
-		if (form.query.value == '') {
-			getResults();
-		} else {
-			getResults(form.query.value, false);
-		}
+	if (form.query.value == '') {
+		getResults();
+	} else {
+		getResults(form.query.value, false);
 	}
 }
 
@@ -222,5 +249,5 @@ window.onscroll = function () {
 window.onload = () => {
 	addEventListeners();
 	getResults();
-	
+
 }
