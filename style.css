@@ -218,6 +218,7 @@ main>form {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-color: var(--modal-background);
+	/* background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(myimage.png); */
 
 	border: solid 2px var(--white);
 	color:var(--white);
@@ -239,7 +240,7 @@ main>form {
 	background-color: var(--background);
 }
 
-#modal-body {
+#modal-body, #modal-release-date {
 	margin: 2% 3%;
 	font-size: 20px;
 	

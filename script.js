@@ -143,8 +143,13 @@ const openDetails = async (element) => {
 	// Background
 	if(element.backdrop_path !== null){
 		backdrop_path = `https://image.tmdb.org/t/p/original${element.backdrop_path}`
+		// linear gradient used to reduce the brightness of the image and act as a 'filter'
 		modal.style.background = `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('${backdrop_path}')`;
 	}
+
+	// release date
+	let releaseDate = element.release_date.replace("-"," ");
+	modalReleaseDate.innerHTML = `<i class="fa fa-clock-o"></i> ${releaseDate}`
 	//wait for promise in async block
 	movieVideosObject = await getVideo(element.id);
 	youtubeKey = movieVideosObject.results[0].key;
