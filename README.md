@@ -2,7 +2,7 @@
 
 Submitted by: **Enzo Falone**
 
-Estimated time spent: **10** hours spent in total
+Estimated time spent: **13** hours spent in total
 
 Deployed Application: [Flixster Deployed Site](https://enzofalone.github.io/flixster_starter/)
 
