@@ -112,9 +112,11 @@ const displayResults = (dataObject) => {
 
 		let movieTitle = document.createElement("span");
 		movieTitle.textContent = element.original_title;
+		movieTitle.classList.add("movie-title");
 
 		let movieVotes = document.createElement("span");
 		movieVotes.innerHTML = `${element.vote_average} <i style="color:yellow;" class="fa fa-star"></i>`;
+		movieVotes.classList.add("movie-votes");
 
 		movieCardSpecWrapper.appendChild(movieTitle);
 		movieCardSpecWrapper.appendChild(movieVotes);
