@@ -38,7 +38,7 @@ Deployed Application: [Flixster Deployed Site](https://enzofalone.github.io/flix
 - [x] Allow movie video trailers to be played using [embedded YouTube](https://support.google.com/youtube/answer/171780?hl=en)
 - [x] "Go to top" button implemented
 - [x] "End of page" alert if the user request retrieves no movies or if reached to the end of the page
-- [x] Added a design to movie popup (rating stars, dimmed background image)
+- [x] Added a design to movie popup (rating stars, dimmed background image using the backdrop image of each movie)
 - [x] Placeholder image for API results that do not contain a poster
 - [x] Star rating system in popup where it fills the stars based on whats given by API
 
